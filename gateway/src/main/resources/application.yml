@@ -1,0 +1,22 @@
+server:
+  port: 88
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.25.255.82:8848
+    gateway:
+      routes:
+        - id: provider-route # 服务提供者路由,注意该路由需要放在前面
+          uri: lb://provider
+          predicates:
+            - Path=/api/provider/**
+          filters:
+            - RewritePath=/api/provider/(?<segment>.*),/provider/$\{segment}
+
+        - id: renren-fast # renren-fast路由
+          uri: lb://renren-fast
+          predicates:
+             - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
