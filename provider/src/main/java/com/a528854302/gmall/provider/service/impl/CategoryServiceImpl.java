@@ -1,7 +1,14 @@
 package com.a528854302.gmall.provider.service.impl;
 
+import com.a528854302.gmall.provider.vo.Catelog2Vo;
+import com.a528854302.gmall.provider.vo.Catelog3Vo;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -25,5 +32,56 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         return new PageUtils(page);
     }
+
+    @Override
+    public List<CategoryEntity> listTree() {
+        List<CategoryEntity> list = this.list();
+        return list.stream().filter(i->i.getParentCid()==0)
+                .map(i->{
+                    i.setChildren(getChildren(i,list));
+                    return i;
+                })
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<CategoryEntity> listLevel1Categories() {
+        return this.list(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
+    }
+
+    @Override
+    public Map<Long, List<Catelog2Vo>> getCatelogJson() {
+        List<CategoryEntity> list = this.list();
+        HashMap<Long, List<Catelog2Vo>> map = new HashMap<>();
+        list.stream().filter(item->item.getParentCid()==0).forEach(item->{
+            List<CategoryEntity> level2Children = getChildren(item, list);
+            List<Catelog2Vo> vos = level2Children.stream().map(level2Child -> {
+                Catelog2Vo catelog2Vo = new Catelog2Vo();
+                catelog2Vo.setId(level2Child.getCatId());
+                catelog2Vo.setCatalog1Id(item.getCatId());
+                catelog2Vo.setName(level2Child.getName());
+                catelog2Vo.setCatalog3List(getChildren(level2Child,list).stream().map(level3Child->{
+                    Catelog3Vo catelog3Vo = new Catelog3Vo();
+                    catelog3Vo.setCatalog2Id(level2Child.getCatId());
+                    catelog3Vo.setId(level3Child.getCatId());
+                    catelog3Vo.setName(level3Child.getName());
+                    return catelog3Vo;
+                }).collect(Collectors.toList()));
+                return catelog2Vo;
+            }).collect(Collectors.toList());
+            map.put(item.getCatId(),vos);
+        });
+        return map;
+    }
+
+    private List<CategoryEntity> getChildren(CategoryEntity i, List<CategoryEntity> list) {
+        return list.stream().filter(item->item.getParentCid()==i.getCatId())
+                .map(item->{
+                    item.setChildren(getChildren(item,list));
+                    return item;
+                }).collect(Collectors.toList());
+    }
+
 
 }

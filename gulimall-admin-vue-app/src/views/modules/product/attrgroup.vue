@@ -134,7 +134,7 @@ export default {
     getDataList() {
       this.dataListLoading = true;
       this.$http({
-        url: this.$http.adornUrl(`/product/attrgroup/list/${this.catId}`),
+        url: this.$http.adornUrl(`/provider/attrgroup/list/${this.catId}`),
         method: "get",
         params: this.$http.adornParams({
           page: this.pageIndex,
@@ -191,7 +191,7 @@ export default {
         }
       ).then(() => {
         this.$http({
-          url: this.$http.adornUrl("/product/attrgroup/delete"),
+          url: this.$http.adornUrl("/provider/attrgroup/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
         }).then(({ data }) => {

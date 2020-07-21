@@ -115,7 +115,7 @@ export default {
         if (this.dataForm.brandId) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/brand/info/${this.dataForm.brandId}`
+              `/provider/brand/info/${this.dataForm.brandId}`
             ),
             method: "get",
             params: this.$http.adornParams()
@@ -138,7 +138,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/brand/${!this.dataForm.brandId ? "save" : "update"}`
+              `/provider/brand/${!this.dataForm.brandId ? "save" : "update"}`
             ),
             method: "post",
             data: this.$http.adornData({

@@ -1,16 +1,16 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
-
+import com.a528854302.gmall.provider.entity.AttrEntity;
+import com.a528854302.gmall.provider.entity.AttrGroupEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.a528854302.gmall.provider.entity.AttrGroupEntity;
 import com.a528854302.gmall.provider.service.AttrGroupService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.R;
@@ -30,6 +30,37 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+
+    /**
+     * 获取分类下所有分组&关联属性
+     */
+    @RequestMapping("/{catelogId}/withattr")
+    //@RequiresPermissions("provider:attrgroup:list")
+    public R listAttrAttrGroupByCatelogId(@PathVariable("catelogId") Long catelogId){
+        List<AttrGroupEntity> entities = attrGroupService.listAttrAttrGroupByCatelogId(catelogId);
+        return R.ok().put("data", entities);
+    }
+
+    /**
+     * 获取属性分组的关联的所有属性
+     */
+    @RequestMapping("/{attrgroupId}/attr/relation")
+    //@RequiresPermissions("provider:attrgroup:list")
+    public R listAttrByAttrgroupId(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> attrEntities = attrGroupService.listAttrByAttrgroupId(attrgroupId);
+        return R.ok().put("data", attrEntities);
+    }
+
+    /**
+     * 获取属性分组没有关联的其他属性
+     */
+    @RequestMapping("/{attrgroupId}/noattr/relation")
+    //@RequiresPermissions("provider:attrgroup:list")
+    public R listNoAttrByAttrgroupId(@PathVariable("attrgroupId") Long attrgroupId,@RequestParam Map<String, Object> params){
+        PageUtils page = attrGroupService.listNoAttrByAttrgroupId(attrgroupId,params);
+        return R.ok().put("page", page);
+    }
+
     /**
      * 列表
      */
@@ -38,6 +69,19 @@ public class AttrGroupController {
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = attrGroupService.queryPage(params);
 
+        return R.ok().put("page", page);
+    }
+
+
+    /**
+     * 获取分类属性分组
+     * @param
+     * @return
+     */
+    @RequestMapping("/list/{catelogId}")
+    //@RequiresPermissions("provider:attrgroup:list")
+    public R listByCatelogId(@RequestParam Map<String, Object> params,@PathVariable("catelogId") Long catelogId){
+        PageUtils page = attrGroupService.listByCatelogId(params,catelogId);
         return R.ok().put("page", page);
     }
 

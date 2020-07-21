@@ -48,8 +48,8 @@
                 <template slot="prepend">成长值</template>
               </el-input-number>
             </el-form-item>
-            <el-form-item label="商品介绍" prop="decript">
-              <multi-upload v-model="spu.decript"></multi-upload>
+            <el-form-item label="商品介绍" prop="descriptionImgs">
+              <multi-upload v-model="spu.descriptionImgs"></multi-upload>
             </el-form-item>
 
             <el-form-item label="商品图集" prop="images">
@@ -369,7 +369,7 @@ export default {
         brandId: "",
         weight: "",
         publishStatus: 0,
-        decript: [], //商品详情
+        descriptionImgs: [], //商品详情
         images: [], //商品图集，最后sku也可以新增
         bounds: {
           //积分
@@ -392,7 +392,7 @@ export default {
         brandId: [
           { required: true, message: "请选择一个品牌", trigger: "blur" }
         ],
-        decript: [
+        descriptionImgs: [
           { required: true, message: "请上传商品详情图集", trigger: "blur" }
         ],
         images: [
@@ -458,13 +458,13 @@ export default {
         brandId: "",
         weight: "",
         publishStatus: 0,
-        decript: [], 
-        images: [], 
+        descriptionImgs: [],
+        images: [],
         bounds: {
           buyBounds: 0,
           growBounds: 0
         },
-        baseAttrs: [], 
+        baseAttrs: [],
         skus: []
       };
     },
@@ -473,7 +473,7 @@ export default {
     },
     getMemberLevels() {
       this.$http({
-        url: this.$http.adornUrl("/member/memberlevel/list"),
+        url: this.$http.adornUrl("/provider/memberlevel/list"),
         method: "get",
         params: this.$http.adornParams({
           page: 1,
@@ -642,7 +642,7 @@ export default {
       if (!this.dataResp.steped[1]) {
         this.$http({
           url: this.$http.adornUrl(
-            `/product/attr/sale/list/${this.spu.catalogId}`
+            `/provider/attr/sale/list/${this.spu.catalogId}`
           ),
           method: "get",
           params: this.$http.adornParams({
@@ -668,7 +668,7 @@ export default {
       if (!this.dataResp.steped[0]) {
         this.$http({
           url: this.$http.adornUrl(
-            `/product/attrgroup/${this.spu.catalogId}/withattr`
+            `/provider/attrgroup/${this.spu.catalogId}/withattr`
           ),
           method: "get",
           params: this.$http.adornParams({})
@@ -700,7 +700,7 @@ export default {
       })
         .then(() => {
           this.$http({
-            url: this.$http.adornUrl("/product/spuinfo/save"),
+            url: this.$http.adornUrl("/provider/spuinfo/save"),
             method: "post",
             data: this.$http.adornData(this.spu, false)
           }).then(({ data }) => {

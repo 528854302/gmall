@@ -1,9 +1,11 @@
 package com.a528854302.gmall.provider.service;
 
+import com.a528854302.gmall.provider.entity.BrandEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.gmall.provider.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface CategoryBrandRelationService extends IService<CategoryBrandRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<BrandEntity> listBrandByCatId(Long catId);
 }
 

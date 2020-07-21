@@ -1,8 +1,11 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.a528854302.gmall.provider.entity.BrandEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +32,18 @@ import com.a528854302.common.utils.R;
 public class CategoryBrandRelationController {
     @Autowired
     private CategoryBrandRelationService categoryBrandRelationService;
+
+    /**
+     * 获取分类关联的品牌
+     */
+    @RequestMapping("/brands/list")
+    //@RequiresPermissions("provider:categorybrandrelation:list")
+    public R listBrandByCatId(@Param("catId") Long catId ){
+        List<BrandEntity> brandEntities = categoryBrandRelationService.listBrandByCatId(catId);
+
+        return R.ok().put("data", brandEntities);
+    }
+
 
     /**
      * 列表

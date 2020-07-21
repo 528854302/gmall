@@ -12,6 +12,8 @@ spring:
     password: 8235250
   application:
     name: provider
+  thymeleaf:
+    cache: false
 #  redis:
 #    host: 172.16.116.100
 #  zipkin:
@@ -31,3 +33,8 @@ mybatis-plus:
 feign:
   sentinel:
     enabled: true
+
+#自己实现的文件上传配置
+my-upload:
+  uploadDir: d:/mytmp/ #文件上传文件夹,必须以/结尾
+  access-url: /files/  #文件url访问路径,必须以/结尾

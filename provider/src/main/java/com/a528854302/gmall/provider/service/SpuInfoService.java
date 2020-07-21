@@ -1,5 +1,7 @@
 package com.a528854302.gmall.provider.service;
 
+import com.a528854302.common.utils.R;
+import com.a528854302.gmall.provider.vo.ProductSaveVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.gmall.provider.entity.SpuInfoEntity;
@@ -16,5 +18,9 @@ import java.util.Map;
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void save(ProductSaveVo productSaveVo);
+
+    R productUp(Long spuId);
 }
 

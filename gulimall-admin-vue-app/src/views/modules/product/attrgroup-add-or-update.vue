@@ -75,14 +75,14 @@ export default {
     };
   },
   components:{CategoryCascader},
-  
+
   methods: {
     dialogClose(){
       this.catelogPath = [];
     },
     getCategorys(){
       this.$http({
-        url: this.$http.adornUrl("/product/category/list/tree"),
+        url: this.$http.adornUrl("/provider/category/list/tree"),
         method: "get"
       }).then(({ data }) => {
         this.categorys = data.data;
@@ -96,7 +96,7 @@ export default {
         if (this.dataForm.attrGroupId) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/attrgroup/info/${this.dataForm.attrGroupId}`
+              `/provider/attrgroup/info/${this.dataForm.attrGroupId}`
             ),
             method: "get",
             params: this.$http.adornParams()
@@ -120,7 +120,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/attrgroup/${
+              `/provider/attrgroup/${
                 !this.dataForm.attrGroupId ? "save" : "update"
               }`
             ),

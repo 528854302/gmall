@@ -1,5 +1,5 @@
 <template>
-<!-- 
+<!--
 使用说明：
 1）、引入category-cascader.vue
 2）、语法：<category-cascader :catelogPath.sync="catelogPath"></category-cascader>
@@ -10,7 +10,7 @@
   <div>
     <el-cascader
       filterable
-      clearable 
+      clearable
       placeholder="试试搜索：手机"
       v-model="paths"
       :options="categorys"
@@ -61,7 +61,7 @@ export default {
   methods: {
     getCategorys() {
       this.$http({
-        url: this.$http.adornUrl("/product/category/list/tree"),
+        url: this.$http.adornUrl("/provider/category/list/tree"),
         method: "get"
       }).then(({ data }) => {
         this.categorys = data.data;

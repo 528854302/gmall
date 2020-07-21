@@ -168,7 +168,7 @@ export default {
       this.dataListLoading = true;
       let type = this.attrtype == 0 ? "sale" : "base";
       this.$http({
-        url: this.$http.adornUrl(`/product/attr/${type}/list/${this.catId}`),
+        url: this.$http.adornUrl(`/provider/attr/${type}/list/${this.catId}`),
         method: "get",
         params: this.$http.adornParams({
           page: this.pageIndex,
@@ -225,7 +225,7 @@ export default {
         }
       ).then(() => {
         this.$http({
-          url: this.$http.adornUrl("/product/attr/delete"),
+          url: this.$http.adornUrl("/provider/attr/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
         }).then(({ data }) => {

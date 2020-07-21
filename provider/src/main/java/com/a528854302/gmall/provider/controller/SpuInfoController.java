@@ -3,6 +3,7 @@ package com.a528854302.gmall.provider.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.a528854302.gmall.provider.vo.ProductSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,15 @@ import com.a528854302.common.utils.R;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    /**
+     * 商品上架
+     */
+    @RequestMapping("/{spuId}/up")
+    //@RequiresPermissions("provider:spuinfo:list")
+    public R up(@PathVariable("spuId") Long spuId){
+        return spuInfoService.productUp(spuId);
+    }
 
     /**
      * 列表
@@ -58,9 +68,8 @@ public class SpuInfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("provider:spuinfo:save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
-
+    public R save(@RequestBody ProductSaveVo productSaveVo){
+		spuInfoService.save(productSaveVo);
         return R.ok();
     }
 

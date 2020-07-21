@@ -12,7 +12,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author 528854302@qq.com
  * @Date 2020/7/18
  **/
-@EnableSwagger2
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.a528854302.gmall.provider.dao")

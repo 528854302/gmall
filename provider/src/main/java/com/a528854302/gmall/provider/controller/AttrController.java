@@ -3,6 +3,7 @@ package com.a528854302.gmall.provider.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,32 @@ public class AttrController {
 
         return R.ok().put("page", page);
     }
+
+    /**
+     * 获取分类规格参数
+     */
+    @ApiOperation("获取分类规格参数")
+    @RequestMapping("/base/list/{catelogId}")
+    //@RequiresPermissions("provider:attr:list")
+    public R listBaseAttrByCatelogId(@RequestParam Map<String, Object> params
+            ,@PathVariable("catelogId") Long catelogId){
+        PageUtils page = attrService.listBaseAttrByCatelogId(catelogId,params);
+
+        return R.ok().put("page", page);
+    }
+
+    /**
+     * 获取分类销售属性
+     */
+    @ApiOperation("获取分类销售属性")
+    @RequestMapping("/sale/list/{catelogId}")
+    //@RequiresPermissions("provider:attr:list")
+    public R listSalesAttrByCatelogId(@RequestParam Map<String, Object> params
+            ,@PathVariable("catelogId") Long catelogId){
+        PageUtils page = attrService.listSaleAttrByCatelogId(catelogId,params);
+        return R.ok().put("page", page);
+    }
+
 
 
     /**
