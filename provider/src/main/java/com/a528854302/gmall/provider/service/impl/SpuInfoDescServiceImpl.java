@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.Query;
-
 import com.a528854302.gmall.provider.dao.SpuInfoDescDao;
 import com.a528854302.gmall.provider.entity.SpuInfoDescEntity;
 import com.a528854302.gmall.provider.service.SpuInfoDescService;
@@ -22,7 +21,6 @@ public class SpuInfoDescServiceImpl extends ServiceImpl<SpuInfoDescDao, SpuInfoD
                 new Query<SpuInfoDescEntity>().getPage(params),
                 new QueryWrapper<SpuInfoDescEntity>()
         );
-
         return new PageUtils(page);
     }
 

@@ -53,6 +53,13 @@ public class SpuInfoDescController {
         return R.ok().put("spuInfoDesc", spuInfoDesc);
     }
 
+    @RequestMapping("selectBySpuId/{spuId}")
+    //@RequiresPermissions("provider:spuinfodesc:info")
+    public SpuInfoDescEntity selectBySpuId(@PathVariable("spuId") Long spuId){
+        return spuInfoDescService.getById(spuId);
+
+    }
+
     /**
      * 保存
      */

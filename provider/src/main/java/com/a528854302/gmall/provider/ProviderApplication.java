@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -12,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author 528854302@qq.com
  * @Date 2020/7/18
  **/
+@EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.a528854302.gmall.provider.dao")

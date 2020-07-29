@@ -70,10 +70,10 @@ $(function(){
 		})
 
        //红边框
-		$(".box-attr-2 dd").click(function() {
-			$(this).addClass("redborder").siblings("dd").removeClass("redborder");
-            switchSkuId();
-		})
+		// $(".box-attr-2 dd").click(function() {
+		//
+	   //
+		// })
 		//加减
 		$("#jia").click(function() {
 			var n = $(this).parent().parent().prev("input").val()

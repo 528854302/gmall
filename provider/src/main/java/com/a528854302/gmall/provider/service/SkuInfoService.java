@@ -1,5 +1,7 @@
 package com.a528854302.gmall.provider.service;
 
+import com.a528854302.gmall.portal.vo.SkuItemVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.gmall.provider.entity.SkuInfoEntity;
@@ -16,5 +18,9 @@ import java.util.Map;
 public interface SkuInfoService extends IService<SkuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    PageUtils queryPage(QueryWrapper<com.a528854302.gmall.provider.entity.SkuInfoEntity> queryWrapper,Integer page);
+
+    SkuItemVo item(Long skuId);
 }
 

@@ -3,7 +3,9 @@ package com.a528854302.gmall.provider.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.a528854302.gmall.portal.vo.SkuItemVo;
 import com.a528854302.gmall.provider.vo.ProductSaveVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,8 +61,13 @@ public class SpuInfoController {
     //@RequiresPermissions("provider:spuinfo:info")
     public R info(@PathVariable("id") Long id){
 		SpuInfoEntity spuInfo = spuInfoService.getById(id);
-
         return R.ok().put("spuInfo", spuInfo);
+    }
+
+    @RequestMapping("/selectBySpuId/{spuId}")
+    //@RequiresPermissions("provider:spuinfo:info")
+    public SpuInfoEntity selectBySpuId(@PathVariable("spuId") Long spuId){
+        return spuInfoService.getById(spuId);
     }
 
     /**
@@ -72,6 +79,7 @@ public class SpuInfoController {
 		spuInfoService.save(productSaveVo);
         return R.ok();
     }
+
 
     /**
      * 修改

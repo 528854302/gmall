@@ -14,9 +14,23 @@ spring:
           filters:
             - RewritePath=/api/provider/(?<segment>.*),/provider/$\{segment}
 
-        - id: renren-fast # renren-fast路由
+        - id: renren-fast-route # renren-fast路由
           uri: lb://renren-fast
           predicates:
              - Path=/api/**
           filters:
             - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: portal-route # 商城前台路由
+          uri: lb://portal
+          predicates:
+            - Path=/portal/**
+          filters:
+            - RewritePath=/portal/(?<segment>.*),/portal/$\{segment}
+
+        - id: auth-route # 认证路由
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*),/auth/$\{segment}

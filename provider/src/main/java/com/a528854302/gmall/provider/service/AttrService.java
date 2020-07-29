@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.gmall.provider.entity.AttrEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,10 +16,13 @@ import java.util.Map;
  */
 public interface AttrService extends IService<AttrEntity> {
 
+
     PageUtils queryPage(Map<String, Object> params);
 
-    PageUtils listBaseAttrByCatelogId(Long catelogId, Map<String, Object> params);
+    PageUtils listBaseAttrByCatelogIdByPage(Long catelogId, Map<String, Object> params);
 
-    PageUtils listSaleAttrByCatelogId(Long catelogId, Map<String, Object> params);
+    PageUtils listSaleAttrByCatelogIdByPage(Long catelogId, Map<String, Object> params);
+
+    List<com.a528854302.gmall.provider.entity.AttrEntity> selectAttrByCatelogId(Long catalog3Id);
 }
 

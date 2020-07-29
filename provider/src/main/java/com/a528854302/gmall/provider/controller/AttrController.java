@@ -50,7 +50,7 @@ public class AttrController {
     //@RequiresPermissions("provider:attr:list")
     public R listBaseAttrByCatelogId(@RequestParam Map<String, Object> params
             ,@PathVariable("catelogId") Long catelogId){
-        PageUtils page = attrService.listBaseAttrByCatelogId(catelogId,params);
+        PageUtils page = attrService.listBaseAttrByCatelogIdByPage(catelogId,params);
 
         return R.ok().put("page", page);
     }
@@ -63,7 +63,7 @@ public class AttrController {
     //@RequiresPermissions("provider:attr:list")
     public R listSalesAttrByCatelogId(@RequestParam Map<String, Object> params
             ,@PathVariable("catelogId") Long catelogId){
-        PageUtils page = attrService.listSaleAttrByCatelogId(catelogId,params);
+        PageUtils page = attrService.listSaleAttrByCatelogIdByPage(catelogId,params);
         return R.ok().put("page", page);
     }
 

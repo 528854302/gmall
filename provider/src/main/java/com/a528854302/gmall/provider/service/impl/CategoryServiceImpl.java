@@ -3,18 +3,15 @@ package com.a528854302.gmall.provider.service.impl;
 import com.a528854302.gmall.provider.vo.Catelog2Vo;
 import com.a528854302.gmall.provider.vo.Catelog3Vo;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.Query;
-
 import com.a528854302.gmall.provider.dao.CategoryDao;
 import com.a528854302.gmall.provider.entity.CategoryEntity;
 import com.a528854302.gmall.provider.service.CategoryService;
@@ -61,9 +58,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 catelog2Vo.setId(level2Child.getCatId());
                 catelog2Vo.setCatalog1Id(item.getCatId());
                 catelog2Vo.setName(level2Child.getName());
-                catelog2Vo.setCatalog3List(getChildren(level2Child,list).stream().map(level3Child->{
+                catelog2Vo.setCatelog3List(getChildren(level2Child,list).stream().map(level3Child->{
                     Catelog3Vo catelog3Vo = new Catelog3Vo();
-                    catelog3Vo.setCatalog2Id(level2Child.getCatId());
+                    catelog3Vo.setCatelog2Id(level2Child.getCatId());
                     catelog3Vo.setId(level3Child.getCatId());
                     catelog3Vo.setName(level3Child.getName());
                     return catelog3Vo;

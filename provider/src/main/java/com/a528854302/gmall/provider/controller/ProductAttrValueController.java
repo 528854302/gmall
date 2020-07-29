@@ -1,8 +1,10 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.a528854302.gmall.portal.vo.SpuItemBaseAttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +42,14 @@ public class ProductAttrValueController {
 
         return R.ok().put("page", page);
     }
+
+    @RequestMapping("/provider/productattrvalue/selectVoList/{catelogId}/{spuId}")
+    public List<SpuItemBaseAttrVo> selectSpuItemBaseAttrVo(
+            @PathVariable("catelogId") Long catelogId
+            ,@PathVariable("spuId") Long spuId){
+        return productAttrValueService.selectSpuItemBaseAttrVo(catelogId,spuId);
+    }
+
 
 
     /**

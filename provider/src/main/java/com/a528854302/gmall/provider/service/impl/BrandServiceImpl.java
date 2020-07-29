@@ -1,7 +1,15 @@
 package com.a528854302.gmall.provider.service.impl;
 
+import com.a528854302.gmall.provider.dao.CategoryBrandRelationDao;
+import com.a528854302.gmall.provider.entity.CategoryBrandRelationEntity;
+import com.a528854302.gmall.provider.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +32,23 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         );
 
         return new PageUtils(page);
+    }
+
+    @Autowired
+    CategoryBrandRelationDao categoryBrandRelationDao;
+    @Override
+    public List<BrandEntity> listByCategoryId(Long catalog3Id) {
+        if (null==catalog3Id){
+            return null;
+        }
+        QueryWrapper<CategoryBrandRelationEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("catelog_id", catalog3Id);
+        List<Long> brandIds = categoryBrandRelationDao.selectList(queryWrapper).stream()
+                .map(item -> item.getBrandId()).collect(Collectors.toList());
+        if (null!= brandIds && brandIds.size()>0){
+            return baseMapper.selectBatchIds(brandIds);
+        }
+        return null;
     }
 
 }

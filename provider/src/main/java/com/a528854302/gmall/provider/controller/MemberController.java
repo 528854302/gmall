@@ -3,6 +3,7 @@ package com.a528854302.gmall.provider.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,11 @@ import com.a528854302.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @RequestMapping("/selectByUserName/{username}")
+    public MemberEntity selectMemberByUserName(@PathVariable("username") String username){
+        return memberService.getOne(new QueryWrapper<MemberEntity>().eq("username",username));
+    }
 
     /**
      * 列表
@@ -59,9 +65,10 @@ public class MemberController {
     @RequestMapping("/save")
     //@RequiresPermissions("provider:member:save")
     public R save(@RequestBody MemberEntity member){
-		memberService.save(member);
-
-        return R.ok();
+        if (memberService.save(member)){
+            return R.ok();
+        }
+        return R.error();
     }
 
     /**

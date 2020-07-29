@@ -22,7 +22,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.Query;
-
 import com.a528854302.gmall.provider.dao.AttrDao;
 import com.a528854302.gmall.provider.entity.AttrEntity;
 import com.a528854302.gmall.provider.service.AttrService;
@@ -50,7 +49,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     @Override
-    public PageUtils listBaseAttrByCatelogId(Long catelogId, Map<String, Object> params) {
+    public PageUtils listBaseAttrByCatelogIdByPage(Long catelogId, Map<String, Object> params) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
         if (catelogId!=0 && null!=catelogId){
             queryWrapper.eq("catelog_id",catelogId);
@@ -78,7 +77,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                 AttrEntityVo.setGroupName(attrGroupEntity.getAttrGroupName());
             }
             return AttrEntityVo;
-
         }).collect(Collectors.toList());
         PageUtils pageUtils = new PageUtils(page);
         pageUtils.setList(AttrEntityVoS);
@@ -86,7 +84,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     @Override
-    public PageUtils listSaleAttrByCatelogId(Long catelogId, Map<String, Object> params) {
+    public PageUtils listSaleAttrByCatelogIdByPage(Long catelogId, Map<String, Object> params) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
         if (catelogId!=0 && null!=catelogId){
             queryWrapper.eq("catelog_id",catelogId);
@@ -104,6 +102,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             return vo;
         }).collect(Collectors.toList()));
         return pageUtils;
+    }
+
+    @Override
+    public List<AttrEntity> selectAttrByCatelogId(Long catalog3Id) {
+        if (null == catalog3Id){
+            return null;
+        }
+        return this.list(new QueryWrapper<AttrEntity>().eq("catelog_id",catalog3Id));
     }
 
 }

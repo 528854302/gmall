@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.a528854302.gmall.provider.vo.Catelog2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.a528854302.gmall.provider.entity.CategoryEntity;
 import com.a528854302.gmall.provider.service.CategoryService;
-import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.R;
 
 
@@ -30,6 +30,26 @@ import com.a528854302.common.utils.R;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * 获取一级分类列表
+     * @return
+     */
+    @RequestMapping("/listLevel1Categories")
+    //@RequiresPermissions("provider:category:list")
+    public List<CategoryEntity> listLevel1Categories(){
+        return categoryService.listLevel1Categories();
+    }
+
+    /**
+     * 获取category.json
+     * @return
+     */
+    @RequestMapping("/catelog.json")
+    //@RequiresPermissions("provider:category:list")
+    public Map<Long, List<Catelog2Vo>> getCatelogJson(){
+        return categoryService.getCatelogJson();
+    }
 
     /**
      * 列表

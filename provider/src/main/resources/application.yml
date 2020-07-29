@@ -30,6 +30,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto  # 默认使用数据库自增
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 feign:
   sentinel:
     enabled: true

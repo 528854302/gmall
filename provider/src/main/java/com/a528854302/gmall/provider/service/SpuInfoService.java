@@ -1,6 +1,7 @@
 package com.a528854302.gmall.provider.service;
 
 import com.a528854302.common.utils.R;
+import com.a528854302.gmall.portal.vo.SkuItemVo;
 import com.a528854302.gmall.provider.vo.ProductSaveVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.a528854302.common.utils.PageUtils;
@@ -22,5 +23,6 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
     void save(ProductSaveVo productSaveVo);
 
     R productUp(Long spuId);
+
 }
 

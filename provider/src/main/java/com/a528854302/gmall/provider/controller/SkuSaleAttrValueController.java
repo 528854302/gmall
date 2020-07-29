@@ -1,8 +1,11 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.a528854302.gmall.portal.vo.SkuItemSalesAttrVo;
+import com.a528854302.gmall.provider.entity.SkuInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +32,17 @@ import com.a528854302.common.utils.R;
 public class SkuSaleAttrValueController {
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
+
+    @RequestMapping("/provider/skusaleattrvalue/selectVos/{spuId}")
+    public List<SkuItemSalesAttrVo> selectSaleAttrVosBySpuId(@PathVariable("spuId") Long spuId){
+        return skuSaleAttrValueService.selectSaleAttrVosBySpuId(spuId);
+    }
+
+    @RequestMapping("/select/{skuId}")
+    public List<SkuSaleAttrValueEntity> selectSkuInfoBySkuId(@PathVariable("skuId") Long skuId){
+        return skuSaleAttrValueService.getBySkuId(skuId);
+    }
+
 
     /**
      * 列表

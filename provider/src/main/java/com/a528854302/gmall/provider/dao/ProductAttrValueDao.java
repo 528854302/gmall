@@ -1,8 +1,12 @@
 package com.a528854302.gmall.provider.dao;
 
+import com.a528854302.gmall.portal.vo.SpuItemBaseAttrVo;
 import com.a528854302.gmall.provider.entity.ProductAttrValueEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * spu属性值
@@ -13,5 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ProductAttrValueDao extends BaseMapper<ProductAttrValueEntity> {
-	
+
+    List<SpuItemBaseAttrVo> selectSpuItemBaseAttrVo(@Param("catelogId") Long catelogId
+            ,@Param("spuId") Long spuId);
 }

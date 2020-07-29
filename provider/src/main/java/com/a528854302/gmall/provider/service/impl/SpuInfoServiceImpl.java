@@ -1,32 +1,38 @@
 package com.a528854302.gmall.provider.service.impl;
 
 import com.a528854302.common.utils.R;
+import com.a528854302.gmall.portal.vo.SkuItemVo;
 import com.a528854302.gmall.provider.dao.AttrDao;
 import com.a528854302.gmall.provider.dao.SpuImagesDao;
 import com.a528854302.gmall.provider.dao.SpuInfoDescDao;
-import com.a528854302.gmall.provider.entity.*;
 import com.a528854302.gmall.provider.service.*;
 import com.a528854302.gmall.provider.vo.ProductSaveVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.a528854302.gmall.provider.entity.ProductAttrValueEntity;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+import com.a528854302.gmall.provider.entity.SkuInfoEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.Query;
-
 import com.a528854302.gmall.provider.dao.SpuInfoDao;
 import org.springframework.transaction.annotation.Transactional;
-
-
+import com.a528854302.gmall.provider.entity.SpuInfoEntity;
+import com.a528854302.gmall.provider.entity.SpuInfoDescEntity;
+import com.a528854302.gmall.provider.entity.SpuImagesEntity;
+import com.a528854302.gmall.provider.entity.SkuImagesEntity;
+import com.a528854302.gmall.provider.entity.SkuSaleAttrValueEntity;
+import com.a528854302.gmall.provider.entity.SkuLadderEntity;
+import com.a528854302.gmall.provider.entity.SkuFullReductionEntity;
+import com.a528854302.gmall.provider.entity.MemberPriceEntity;
+import com.a528854302.gmall.provider.entity.SpuBoundsEntity;
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 
@@ -109,6 +115,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             List<ProductAttrValueEntity> productAttrValueEntities = baseAttrs.stream().map(i -> {
                 ProductAttrValueEntity productAttrValueEntity = new ProductAttrValueEntity();
                 productAttrValueEntity.setAttrId(i.getAttrId());
+                productAttrValueEntity.setSpuId(spuId);
                 productAttrValueEntity.setAttrName(attrDao.selectById(i.getAttrId()).getAttrName());
                 productAttrValueEntity.setAttrValue(i.getAttrValues());
                 productAttrValueEntity.setQuickShow(i.getShowDesc());
@@ -123,7 +130,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             SkuInfoEntity skuInfoEntity = new SkuInfoEntity();
             BeanUtils.copyProperties(i,skuInfoEntity);
             skuInfoEntity.setSpuId(spuId);
-            skuInfoEntity.setCatalogId(spuInfoEntity.getCatalogId());
+            skuInfoEntity.setCatelogId(spuInfoEntity.getCatalogId());
             skuInfoEntity.setBrandId(spuInfoEntity.getBrandId());
             skuInfoEntity.setSaleCount(0L);
             String defaultImg=null;
@@ -213,5 +220,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             return R.error();
         }
     }
+
 
 }

@@ -3,6 +3,7 @@ package com.a528854302.gmall.provider.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.a528854302.gmall.portal.vo.SkuItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,8 @@ public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
 
+
+
     /**
      * 列表
      */
@@ -53,13 +56,24 @@ public class SkuInfoController {
         return R.ok().put("skuInfo", skuInfo);
     }
 
+    @RequestMapping("/select/{skuId}")
+    //@RequiresPermissions("provider:skuinfo:info")
+    public SkuInfoEntity selectSkuInfoById(@PathVariable("skuId") Long skuId){
+        return skuInfoService.getById(skuId);
+    }
+
+    @RequestMapping("/item/{skuId}")
+    public SkuItemVo item(@PathVariable("skuId") Long skuId){
+        return skuInfoService.item(skuId);
+    }
+
     /**
      * 保存
      */
     @RequestMapping("/save")
     //@RequiresPermissions("provider:skuinfo:save")
     public R save(@RequestBody SkuInfoEntity skuInfo){
-		skuInfoService.save(skuInfo);
+        skuInfoService.save(skuInfo);
 
         return R.ok();
     }
