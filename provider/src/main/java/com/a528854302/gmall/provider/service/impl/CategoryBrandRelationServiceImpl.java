@@ -1,7 +1,9 @@
 package com.a528854302.gmall.provider.service.impl;
 
 import com.a528854302.gmall.provider.dao.BrandDao;
+import com.a528854302.gmall.provider.dao.CategoryDao;
 import com.a528854302.gmall.provider.entity.BrandEntity;
+import com.a528854302.gmall.provider.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,16 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
             return brandDao.selectBatchIds(brandIds);
         }
         return null;
+    }
+    @Autowired
+    CategoryDao categoryDao;
+
+    @Override
+    public List<CategoryEntity> listCategoryByBrandId(Long brandId) {
+        List<Long> categoryIds = this.list(new QueryWrapper<CategoryBrandRelationEntity>()
+                .eq("brand_id", brandId)).stream()
+                .map(i -> i.getCatelogId()).collect(Collectors.toList());
+        return categoryDao.selectBatchIds(categoryIds);
     }
 
 }

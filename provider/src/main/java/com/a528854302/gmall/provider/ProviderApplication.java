@@ -1,6 +1,7 @@
 package com.a528854302.gmall.provider;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -13,6 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author 528854302@qq.com
  * @Date 2020/7/18
  **/
+@EnableRabbit
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication

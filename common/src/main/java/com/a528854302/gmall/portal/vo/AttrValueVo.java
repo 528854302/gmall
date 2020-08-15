@@ -16,4 +16,7 @@ public class AttrValueVo {
     private String value;
     private List<String> skuIds;
 
+    private boolean checked;
+    private String skuId;
+
 }

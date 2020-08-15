@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.25.255.82:8848
+        server-addr: 121.36.197.225:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/gmall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -14,8 +14,14 @@ spring:
     name: provider
   thymeleaf:
     cache: false
+  rabbitmq:
+    host: 121.36.197.225
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual #设置手动处理消息是否处理成功
 #  redis:
-#    host: 172.16.116.100
+#    host: 121.36.197.225
 #  zipkin:
 #    base-url: http://localhost:9411
 #    discovery-client-enabled: false

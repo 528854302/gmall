@@ -1,10 +1,13 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.a528854302.gmall.provider.entity.BrandEntity;
+import com.a528854302.gmall.provider.entity.CategoryEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,24 @@ public class CategoryBrandRelationController {
         List<BrandEntity> brandEntities = categoryBrandRelationService.listBrandByCatId(catId);
 
         return R.ok().put("data", brandEntities);
+    }
+
+    /**
+     * 获取品牌关联的分类
+     */
+    @RequestMapping("/catelog/list")
+    //@RequiresPermissions("provider:categorybrandrelation:list")
+    public R listCategoryByBrandId(@Param("brandId") Long brandId ){
+        List<CategoryEntity> categoryEntities = categoryBrandRelationService
+                .listCategoryByBrandId(brandId);
+        List<HashMap> data = categoryEntities.stream().map(item -> {
+            HashMap map = new HashMap();
+            map.put("catelogName", item.getName());
+            map.put("catelogId", item.getCatId());
+            return map;
+        }).collect(Collectors.toList());
+
+        return R.ok().put("data", data);
     }
 
 

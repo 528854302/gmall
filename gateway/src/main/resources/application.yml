@@ -1,10 +1,12 @@
 server:
   port: 88
 spring:
+  application:
+    name: gateway-api
   cloud:
     nacos:
       discovery:
-        server-addr: 120.25.255.82:8848
+        server-addr: 121.36.197.225:8848
     gateway:
       routes:
         - id: provider-route # 服务提供者路由,注意该路由需要放在前面
@@ -34,3 +36,10 @@ spring:
             - Path=/auth/**
           filters:
             - RewritePath=/auth/(?<segment>.*),/auth/$\{segment}
+
+        - id: item-route # 服务提供者路由,注意该路由需要放在前面
+          uri: lb://provider
+          predicates:
+            - Path=/item/**
+          filters:
+            - RewritePath=/item/(?<segment>.*),/files/$\{segment}

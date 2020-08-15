@@ -210,10 +210,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     @Override
     public R productUp(Long spuId) {
+
         SpuInfoEntity spuInfoEntity = new SpuInfoEntity();
         spuInfoEntity.setId(spuId);
         spuInfoEntity.setPublishStatus(1);
         boolean isSuccess = this.updateById(spuInfoEntity);
+        //TODO 发消息给消息队列，通知portal执行页面静态化
+
         if (isSuccess){
             return R.ok();
         }else {

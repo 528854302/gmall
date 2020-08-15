@@ -1,8 +1,11 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.a528854302.gmall.portal.vo.CartItem;
+import com.a528854302.gmall.provider.to.StockLockTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,13 +34,20 @@ public class WareSkuController {
     private WareSkuService wareSkuService;
 
     /**
+     * 锁库存
+     */
+    @RequestMapping("/stockLock")
+    public R stockLock(@RequestBody StockLockTo stockLockTo){
+        return  wareSkuService.stockLock(stockLockTo);
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
     //@RequiresPermissions("provider:waresku:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = wareSkuService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 

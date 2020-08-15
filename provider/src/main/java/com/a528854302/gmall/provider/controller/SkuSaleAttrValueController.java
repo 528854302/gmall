@@ -39,9 +39,11 @@ public class SkuSaleAttrValueController {
     }
 
     @RequestMapping("/select/{skuId}")
-    public List<SkuSaleAttrValueEntity> selectSkuInfoBySkuId(@PathVariable("skuId") Long skuId){
+    public List<SkuSaleAttrValueEntity> selectSkuId(@PathVariable("skuId") Long skuId){
         return skuSaleAttrValueService.getBySkuId(skuId);
     }
+
+
 
 
     /**

@@ -130,7 +130,7 @@ export default {
     getMemberLevels() {
       //获取所有的会员等级
       this.$http({
-        url: this.$http.adornUrl("/member/memberlevel/list"),
+        url: this.$http.adornUrl("/provider/memberlevel/list"),
         method: "get",
         params: this.$http.adornParams({
           page: 1,
@@ -146,7 +146,7 @@ export default {
     getDataList() {
       this.dataListLoading = true;
       this.$http({
-        url: this.$http.adornUrl("/coupon/coupon/list"),
+        url: this.$http.adornUrl("/provider/coupon/list"),
         method: "get",
         params: this.$http.adornParams({
           page: this.pageIndex,
@@ -203,7 +203,7 @@ export default {
         }
       ).then(() => {
         this.$http({
-          url: this.$http.adornUrl("/coupon/coupon/delete"),
+          url: this.$http.adornUrl("/provider/coupon/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
         }).then(({ data }) => {

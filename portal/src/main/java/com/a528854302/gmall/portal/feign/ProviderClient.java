@@ -3,11 +3,9 @@ package com.a528854302.gmall.portal.feign;
 import com.a528854302.common.utils.R;
 import com.a528854302.gmall.portal.vo.*;
 import com.a528854302.gmall.provider.entity.*;
+import com.a528854302.gmall.provider.to.StockLockTo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,4 +27,16 @@ public interface ProviderClient {
 
     @RequestMapping("/provider/skusaleattrvalue/select/{skuId}")
     List<SkuSaleAttrValueEntity> getSkuSaleAttrValue(@PathVariable("skuId") Long skuId);
+
+    @RequestMapping("/provider/skuinfo/listBySpuId/{spuId}")
+    List<SkuInfoEntity> listSkuInfoBySpuId(@PathVariable("spuId") Long spuId);
+
+    @RequestMapping("/provider/orderitem/saveBatch")
+    R saveOrderItems(@RequestBody List<OrderItemEntity> orderItemEntities);
+
+    @RequestMapping("/provider/order/save")
+    R saveOrder(@RequestBody OrderEntity orderEntity);
+
+    @RequestMapping("/provider/waresku/stockLock")
+    R stockLock(@RequestBody StockLockTo stockLockTo);
 }

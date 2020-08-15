@@ -73,7 +73,7 @@ export default {
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(
-              `/coupon/skufullreduction/info/${this.dataForm.id}`
+              `/provider/skufullreduction/info/${this.dataForm.id}`
             ),
             method: "get",
             params: this.$http.adornParams()
@@ -94,7 +94,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/coupon/skufullreduction/${
+              `/provider/skufullreduction/${
                 !this.dataForm.id ? "save" : "update"
               }`
             ),

@@ -205,7 +205,7 @@ export default {
         this.$refs["dataForm"].resetFields();
         if (this.dataForm.id) {
           this.$http({
-            url: this.$http.adornUrl(`/coupon/coupon/info/${this.dataForm.id}`),
+            url: this.$http.adornUrl(`/provider/coupon/info/${this.dataForm.id}`),
             method: "get",
             params: this.$http.adornParams()
           }).then(({ data }) => {
@@ -244,7 +244,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/coupon/coupon/${!this.dataForm.id ? "save" : "update"}`
+              `/provider/coupon/${!this.dataForm.id ? "save" : "update"}`
             ),
             method: "post",
             data: this.$http.adornData({

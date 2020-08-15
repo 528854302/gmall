@@ -36,20 +36,8 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping({"/search.html"})
-    public String search(SearchParam searchParam, Model model){
-        SearchResult result = providerClient.search(searchParam);
-        model.addAttribute("result",result);
-        model.addAttribute("categories",providerClient.listLevel1Categories());
-        return "search";
-    }
 
-    @RequestMapping("/{skuId}.html")
-    public String item(@PathVariable("skuId") Long skuId,Model model){
-        SkuItemVo skuItemVo = providerClient.item(skuId);
-        model.addAttribute("skuItemVo",skuItemVo);
-        return "item";
-    }
+
 
 
 

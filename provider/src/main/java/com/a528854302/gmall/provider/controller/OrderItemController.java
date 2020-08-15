@@ -1,6 +1,7 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ import com.a528854302.common.utils.R;
 public class OrderItemController {
     @Autowired
     private OrderItemService orderItemService;
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/saveBatch")
+    //@RequiresPermissions("provider:orderitem:list")
+    public R saveBatch(@RequestBody List<OrderItemEntity> orderItemEntities){
+        orderItemService.saveBatch(orderItemEntities);
+        return R.ok();
+    }
 
     /**
      * 列表
