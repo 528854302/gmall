@@ -22,4 +22,5 @@ public interface WareSkuDao extends BaseMapper<WareSkuEntity> {
 
     @Update("UPDATE `wms_ware_sku` SET stock_locked=stock_locked-#{num} WHERE sku_id=#{skuId}")
     Integer releaseStockLock(@Param("skuId") Long skuId,@Param("num") Integer num);
+
 }

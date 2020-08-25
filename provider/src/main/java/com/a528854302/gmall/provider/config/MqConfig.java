@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @Date 2020/8/14
  **/
 @Configuration
-public class RabbitConfig {
+public class MqConfig {
 
 //    @RabbitListener
 //    public void hanle(Message message){

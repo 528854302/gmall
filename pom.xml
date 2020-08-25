@@ -15,6 +15,7 @@
         <module>renren-fast</module>
         <module>portal</module>
         <module>auth</module>
+        <module>seckill</module>
     </modules>
 
 

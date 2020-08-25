@@ -24,5 +24,6 @@ public interface WareSkuService extends IService<WareSkuEntity> {
 
     R stockLock(StockLockTo stockLockTo);
 
+
 }
 

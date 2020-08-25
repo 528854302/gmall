@@ -6,6 +6,9 @@ import com.a528854302.gmall.portal.vo.SkuItemSalesAttrVo;
 import com.a528854302.gmall.provider.dao.SkuInfoDao;
 import com.a528854302.gmall.provider.dao.SkuSaleAttrValueDao;
 import com.a528854302.gmall.provider.dao.WareSkuDao;
+import com.a528854302.gmall.provider.entity.SeckillSessionEntity;
+import com.a528854302.gmall.provider.service.SeckillSessionService;
+import com.a528854302.gmall.provider.service.WareSkuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.junit.runner.RunWith;
@@ -27,14 +30,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 @RunWith(SpringRunner.class)
 public class Test {
     @Autowired
+    WareSkuService wareSkuService;
+    @Autowired
     WareSkuDao wareSkuDao;
     @Autowired
-    ThreadPoolExecutor threadPoolExecutor;
+    SeckillSessionService seckillSessionService;
 
+    static int count=0;
     @org.junit.Test
     public void test(){
-
-
+        List<SeckillSessionEntity> sessions = seckillSessionService.getLastest3DaysSessions();
+        System.out.println(sessions);
 
     }
 }

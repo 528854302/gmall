@@ -1,5 +1,6 @@
 package com.a528854302.gmall.provider.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -54,4 +55,9 @@ public class SeckillSkuRelationEntity implements Serializable {
 	 */
 	private Integer seckillSort;
 
+	@TableField(exist = false)
+	private SkuInfoEntity skuInfoEntity;
+
+	@TableField(exist = false)
+    public String seckillToken;
 }

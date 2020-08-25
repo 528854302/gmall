@@ -1,6 +1,7 @@
 package com.a528854302.gmall.provider.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,15 @@ import com.a528854302.common.utils.R;
 public class SeckillSessionController {
     @Autowired
     private SeckillSessionService seckillSessionService;
+
+    /**
+     *
+     */
+    @RequestMapping("/getLastest3DaysSessions")
+    //@RequiresPermissions("provider:seckillsession:list")
+    public List<SeckillSessionEntity> getLastest3DaysSessions(){
+        return seckillSessionService.getLastest3DaysSessions();
+    }
 
     /**
      * 列表
