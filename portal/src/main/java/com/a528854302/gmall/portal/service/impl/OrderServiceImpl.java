@@ -2,11 +2,13 @@ package com.a528854302.gmall.portal.service.impl;
 
 import com.a528854302.common.utils.Constant;
 import com.a528854302.common.utils.R;
+import com.a528854302.gmall.portal.aspect.LoginAspect;
 import com.a528854302.gmall.portal.constant.CartConstant;
 import com.a528854302.gmall.portal.constant.OrderContstant;
 import com.a528854302.gmall.portal.feign.ProviderClient;
 import com.a528854302.gmall.portal.service.OrderService;
 import com.a528854302.gmall.portal.vo.*;
+import com.a528854302.gmall.provider.entity.MemberEntity;
 import com.a528854302.gmall.provider.entity.OrderEntity;
 import com.a528854302.gmall.provider.entity.OrderItemEntity;
 import com.a528854302.gmall.provider.entity.SkuInfoEntity;
@@ -41,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     ProviderClient providerClient;
     @Override
     public TradeVo getTradeVo() {
-        //todo 获取用户id
-        String userId="4";
+        MemberEntity memberEntity = LoginAspect.threadLocal.get();
+        String userId=memberEntity.getId().toString();
         BoundHashOperations<String, Object, Object> hashOps =
                 redisTemplate.boundHashOps(CartConstant.CART_PREFIX + userId);
         List<CartItem> cartItems = getCartItems(hashOps);
@@ -94,8 +96,8 @@ public class OrderServiceImpl implements OrderService {
         String orderToken = orderSubmitVo.getOrderToken();
 
 
-        //todo 获取用户id
-        String userId="4";
+        MemberEntity memberEntity = LoginAspect.threadLocal.get();
+        String userId=memberEntity.getId().toString();
         //调用lua脚本保证原子性
         String script="if redis.call('get',KEYS[1])== ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
         String userKey=OrderContstant.USER_TOKEN_PRIFIX + userId;

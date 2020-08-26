@@ -1,4 +1,4 @@
-package com.a528854302.gmall.auth;
+package com.a528854302.gmall.auth.feign;
 
 import com.a528854302.common.utils.R;
 import com.a528854302.gmall.provider.entity.MemberEntity;

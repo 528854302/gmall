@@ -16,6 +16,8 @@ import com.a528854302.gmall.provider.service.AttrService;
 import com.a528854302.common.utils.PageUtils;
 import com.a528854302.common.utils.R;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -30,6 +32,18 @@ import com.a528854302.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+    @RequestMapping("/test")
+    public R testSession(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+        if (user==null){
+            return R.error("未登录");
+        }else {
+            return R.ok().put("data",user);
+        }
+    }
+
+
 
     /**
      * 列表
@@ -38,7 +52,6 @@ public class AttrController {
     //@RequiresPermissions("provider:attr:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = attrService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 

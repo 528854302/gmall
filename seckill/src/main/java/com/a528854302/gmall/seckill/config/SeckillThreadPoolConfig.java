@@ -18,7 +18,7 @@ import java.util.concurrent.*;
 public class SeckillThreadPoolConfig {
     @Bean
     public ThreadPoolExecutor seckillThreadPool(){
-        return new ThreadPoolExecutor(25
+        return new ThreadPoolExecutor(10
                 , 200,
                 30, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(200)

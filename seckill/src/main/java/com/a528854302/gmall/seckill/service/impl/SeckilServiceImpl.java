@@ -1,8 +1,8 @@
 package com.a528854302.gmall.seckill.service.impl;
 
+import com.a528854302.common.utils.R;
 import com.a528854302.gmall.provider.entity.SeckillSessionEntity;
 import com.a528854302.gmall.provider.entity.SeckillSkuRelationEntity;
-import com.a528854302.gmall.seckill.task.Seckill;
 import com.a528854302.gmall.seckill.task.SeckillCallableTask;
 import com.a528854302.gmall.seckill.constant.SeckillConst;
 import com.a528854302.gmall.seckill.feign.ProviderClient;
@@ -49,7 +49,6 @@ public class SeckilServiceImpl implements SeckilService {
                 if (!redisTemplate.hasKey(redisSessionKey)&& ttl>0){
                     BoundHashOperations<String, Object, Object> ops = redisTemplate.boundHashOps(redisSessionKey);
                     List<SeckillSkuVo> seckillSkuVos = saveRedisSeckillVos(ops,session,ttl, TimeUnit.MILLISECONDS);
-
                 }
             }
         }
@@ -89,26 +88,34 @@ public class SeckilServiceImpl implements SeckilService {
         Set<Object> keys = redisTemplate.boundHashOps(sessionKey).keys();
         SeckillSkuVo vo = JSON.parseObject(jsonStr, SeckillSkuVo.class);
         String replace = sessionKey.replace(SeckillConst.SECKILL_SESSION_REDIS_PREFIX, "");
-        String startTime = replace.split("_")[0];
-
-        if (new Date().getTime()<Long.parseLong(startTime)){
+        Long startTime = Long.parseLong(replace.split("_")[0]);
+        Long endTime = Long.parseLong(replace.split("_")[1]);
+        long now = new Date().getTime();
+        String remainStock = redisTemplate.boundValueOps(SeckillConst.SECKILL_SKU_STOCK_SEMAPHOR_PREFIX
+                + vo.getSeckillToken()).get();
+        vo.setRemainStock(remainStock);
+        if (now <startTime || now>endTime){
             vo.setSeckillToken(null);
+            vo.setStart(false);
+            vo.setStartOrEndMillies(startTime-now);
         }
+        vo.setStartOrEndMillies(endTime-now);
+        vo.setRedisSessionKey(sessionKey);
         return vo;
     }
     @Autowired
     ThreadPoolExecutor threadPoolExecutor;
 
     @Override
-    public String seckill(String sessionKey, String id, String userId, String token) {
+    public R seckill(String sessionKey, String id, String userId, String token) {
         RSemaphore semaphore = redissonClient
                 .getSemaphore(SeckillConst.SECKILL_SKU_STOCK_SEMAPHOR_PREFIX + token);
-        Future<String> future = threadPoolExecutor
+        Future<R> future = threadPoolExecutor
                 .submit(new SeckillCallableTask(sessionKey, id, userId, token
                 , redisTemplate, semaphore));
         try {
-            String s = future.get();
-            return s;
+            R r = future.get();
+            return r;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -117,33 +124,9 @@ public class SeckilServiceImpl implements SeckilService {
         return null;
     }
 
-    @Override
-    public Boolean testSeckill(){
-        RSemaphore semaphore = redissonClient.getSemaphore("test");
-        Future<Boolean> future = threadPoolExecutor.submit(new Seckill(semaphore));
-        try {
-            Boolean aBoolean = future.get();
-            return aBoolean;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    @Override
-    public String seckill1(String sessionKey, String id, String userId, String token) {
-        RSemaphore semaphore = redissonClient.getSemaphore(SeckillConst.SECKILL_SKU_STOCK_SEMAPHOR_PREFIX + token);
-        SeckillCallableTask task = new SeckillCallableTask(sessionKey, id, userId, token
-                , redisTemplate, semaphore);
-        try {
-            return task.call();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
+
 
 
     private List<SeckillSkuVo> saveRedisSeckillVos(BoundHashOperations operations, SeckillSessionEntity session

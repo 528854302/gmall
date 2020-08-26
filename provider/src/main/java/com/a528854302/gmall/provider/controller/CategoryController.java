@@ -1,21 +1,20 @@
 package com.a528854302.gmall.provider.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import com.a528854302.gmall.provider.vo.Catelog2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.a528854302.gmall.provider.entity.CategoryEntity;
 import com.a528854302.gmall.provider.service.CategoryService;
 import com.a528854302.common.utils.R;
 
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -47,8 +46,13 @@ public class CategoryController {
      */
     @RequestMapping("/catelog.json")
     //@RequiresPermissions("provider:category:list")
-    public Map<Long, List<Catelog2Vo>> getCatelogJson(){
-        return categoryService.getCatelogJson();
+    public Map getCatelogJson(HttpServletResponse response) throws IOException {
+        return categoryService.getCatelogJsonStringFromRedis();
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("application/json; charset=utf-8");
+//        PrintWriter writer = response.getWriter();
+//        writer.write(json);
+
     }
 
     /**
@@ -58,7 +62,6 @@ public class CategoryController {
     //@RequiresPermissions("provider:category:list")
     public R listTree(@RequestParam Map<String, Object> params){
         List<CategoryEntity> categoryEntities = categoryService.listTree();
-
         return R.ok().put("data", categoryEntities);
     }
 

@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: gateway-api
+  redis:
+    host: 121.36.197.225
+    port: 6379
+  #整合spring session配置
+  session:
+    store-type: redis
   cloud:
     nacos:
       discovery:
@@ -43,3 +49,10 @@ spring:
             - Path=/item/**
           filters:
             - RewritePath=/item/(?<segment>.*),/files/$\{segment}
+
+        - id: seckill-route # 认证路由
+          uri: lb://seckill
+          predicates:
+             - Path=/seckill/**
+          filters:
+             - RewritePath=/seckill/(?<segment>.*),/seckill/$\{segment}

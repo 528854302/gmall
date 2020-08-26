@@ -17,9 +17,7 @@ public interface SeckilService {
     SeckillSkuVo getSeckillSkuVo(String sessionKey, String id);
 
 
-    String seckill(String sessionKey, String id, String userId, String token);
+    R seckill(String sessionKey, String id, String userId, String token);
 
-    Boolean testSeckill();
 
-    String seckill1(String sessionKey, String id, String userId, String token);
 }

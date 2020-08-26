@@ -61,7 +61,6 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
                     j.setSkuInfoEntity(skuInfoEntity);
                     return j;
                 }).collect(Collectors.toList());
-
                 i.setSeckillSkuRelationEntities(relationEntities);
                 return i;
             }).collect(Collectors.toList());

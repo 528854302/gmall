@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀</title>
+    <link rel="stylesheet" type="text/css" href="/scss/shop.css"/>
+    <link rel="stylesheet" type="text/css" href="/scss/main.css"/>
+    <link rel="stylesheet" href="/scss/header.css"/>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="/css/GL.css">
+</head>
+<body>
+<div id="max">
+    <header>
+        <div class="min">
+            <ul class="header_ul_left">
+                <li class="glyphicon glyphicon-home"><a href="/portal/index.html" class="aa">首页</a></li>
+                <li class="glyphicon glyphicon-map-marker"><a href="javascript:;">北京</a>
+                    <ol id="beijing">
+                        <li style="background: red;"><a href="javascript:;" style="color: white;">北京</a></li>
+                        <li><a href="javascript:;">上海</a></li>
+                        <li><a href="javascript:;">天津</a></li>
+                        <li><a href="javascript:;">重庆</a></li>
+                        <li><a href="javascript:;">河北</a></li>
+                        <li><a href="javascript:;">山西</a></li>
+                        <li><a href="javascript:;">河南</a></li>
+                        <li><a href="javascript:;">辽宁</a></li>
+                        <li><a href="javascript:;">吉林</a></li>
+                        <li><a href="javascript:;">黑龙江</a></li>
+                        <li><a href="javascript:;">内蒙古</a></li>
+                        <li><a href="javascript:;">江苏</a></li>
+                        <li><a href="javascript:;">山东</a></li>
+                        <li><a href="javascript:;">安徽</a></li>
+                        <li><a href="javascript:;">浙江</a></li>
+                        <li><a href="javascript:;">福建</a></li>
+                        <li><a href="javascript:;">湖北</a></li>
+                        <li><a href="javascript:;">湖南</a></li>
+                        <li><a href="javascript:;">广东</a></li>
+                        <li><a href="javascript:;">广西</a></li>
+                        <li><a href="javascript:;">江西</a></li>
+                        <li><a href="javascript:;">四川</a></li>
+                        <li><a href="javascript:;">海南</a></li>
+                        <li><a href="javascript:;">贵州</a></li>
+                        <li><a href="javascript:;">云南</a></li>
+                        <li><a href="javascript:;">西藏</a></li>
+                        <li><a href="javascript:;">陕西</a></li>
+                        <li><a href="javascript:;">甘肃</a></li>
+                        <li><a href="javascript:;">青海</a></li>
+                        <li><a href="javascript:;">宁夏</a></li>
+                        <li><a href="javascript:;">新疆</a></li>
+                        <li><a href="javascript:;">港澳</a></li>
+                        <li><a href="javascript:;">台湾</a></li>
+                        <li><a href="javascript:;">钓鱼岛</a></li>
+                        <li><a href="javascript:;">海外</a></li>
+                    </ol>
+                </li>
+            </ul>
+            <ul class="header_ul_right" th:if="${session.user==null}">
+
+                <li style="border: 0;"><a href="/auth/index.html" class="aa">你好，请登录</a></li>
+                <li th:if="${session.user==null}"><a href="/auth/register.html" style="color: red;">免费注册</a> |</li>
+                <li> |</li>
+
+
+            </ul>
+
+            <ul class="header_ul_right" th:if="${session.user}">
+                <li>
+                    <a href="#" th:text="${'欢迎：'+session.user.nickname}"></a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="#">我的订单</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="/auth/logout">退出</a>
+            </ul>
+        </div>
+    </header>
+    <nav>
+        <div class="nav_min">
+            <div class="nav_top">
+                <div class="nav_top_one"><a href="#"><img src="/img/logo1.jpg"/></a></div>
+                <div class="nav_top_two"><input id="searchInput" type="text"/>
+                    <button onclick="search()">搜索</button>
+                </div>
+                <div class="nav_top_three"><a href="/portal/cart.html">我的购物车</a><span
+                        class="glyphicon glyphicon-shopping-cart"></span>
+                    <div class="nav_top_three_1">
+                        <img src="/img/44.png"/>购物车还没有商品，赶紧选购吧！
+                    </div>
+                </div>
+            </div>
+            <div class="nav_down">
+                <ul class="nav_down_ul">
+                    <li class="nav_down_ul_1" style="width: 24%;float: left;"><a href="javascript:;">商品秒杀</a>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+<div class="crumb-wrap">
+    <div class="section_second">
+        <!-- 第一层 -->
+        <div class="section_second_header">
+            <p class="section_second_header_img"></p>
+            <div class="section_second_header_left">
+                <p></p>
+                <span class="">秒杀</span>
+                <span>总有你想不到的低价</span>
+                <span>
+        </span>
+            </div>
+            <div class="section_second_header_right">
+                <p>当前商品</p>
+                <span class="section_second_header_right_hours">00</span>
+                <span class="section_second_header_right_mao">：</span>
+                <span class="section_second_header_right_minutes">00</span>
+                <span class="section_second_header_right_mao">：</span>
+                <span class="section_second_header_right_second">00</span>
+                <p id="seckill-end-text"></p>
+            </div>
+        </div>
+</div>
+<div class="Shop">
+    <div class="box">
+        <div class="box-one ">
+            <div class="boxx">
+
+                <div class="imgbox">
+                    <div class="probox">
+                        <img class="img1" alt="" th:src="${vo.skuDefaultImg}" src="/img/59ded626N7c4cb0a3.jpg">
+                        <div class="hoverbox"></div>
+                    </div>
+                    <div class="showbox">
+                        <img class="img1" alt="" th:src="${vo.skuDefaultImg}" src="/img/59ded626N7c4cb0a3.jpg">
+                    </div>
+                </div>
+
+                <div class="box-lh">
+
+                    <div class="box-lh-one">
+                        <ul>
+                            <li >
+                                <img />
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="left">
+                        <
+                    </div>
+                    <div id="right">
+                        >
+                    </div>
+
+                </div>
+
+                <div class="boxx-one">
+                    <ul>
+                        <li>
+
+                        </li>
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="box-two">
+                <div class="box-name">
+                    华为 HUAWEI Mate 10 6GB+128GB 亮黑色 移动联通电信4G手机 双卡双待
+                </div>
+                <div class="box-hide" th:text="${vo.skuSubtitle}">
+                </div>
+                <div class="box-yuyue">
+                    <div class="yuyue-one">
+                        秒杀
+                    </div>
+                    <div class="yuyue-two">
+                        <ul>
+                            <li th:text="${'秒杀开始:'+vo.starttime}">
+                                秒杀开始:
+                            </li>
+                            <li th:text="${'秒杀结束:'+vo.endtime}">
+                                秒杀结束:
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-summary clear">
+                    <ul>
+                        <li>秒杀价</li>
+                        <li>
+                            <span>￥</span>
+                            <span th:text="${#numbers.formatDecimal(vo.seckillPrice,3,2)}">4499.00</span>
+                        </li>
+                        <li>
+
+                        </li>
+                        <li th:text="${'原价: ￥'+#numbers.formatDecimal(vo.price,3,2)}">
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-wrap clear">
+
+                </div>
+                <div class="box-stock">
+                    <ul class="box-ul">
+                        <li>总量:</li>
+                        <li class="box-stock-li">
+                            <div class="box-stock-one">
+                            </div>
+                        </li>
+                        <li>
+                            <span th:text="${vo.seckillCount==0?0:vo.seckillCount}">无货</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="box-stock">
+                    <ul class="box-ul">
+                        <li>余量:</li>
+                        <li class="box-stock-li">
+                            <div class="box-stock-one">
+                            </div>
+                        </li>
+                        <li>
+                            <span th:text="${vo.remainStock==0?0:vo.remainStock}">无货</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="box-stock" style="margin-top: 50px;">
+                    <ul class="box-ul">
+                        <li class="box-stock-li">
+                            <div class="box-stock-one">
+                            </div>
+                        </li>
+                        <li>
+                            <span>1年历史最低价 </span>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="box-btns clear" style="margin-top: 50px;">
+                    <div class="box-btns-one">
+                        <form id="itemForm" action="http://cart.gmall.com:8087/addToCart" method="post">
+                            <input type="text" name="num" id="cartNum" value="1"/>
+                            <input type="hidden" name="skuId" id="skuIdInput" th:value="${vo.skuId}"/>
+                            <div class="box-btns-one1">
+                            </div>
+                        </form>
+                    </div>
+                    <a onclick="seckillBtn()">
+                        <div  style="cursor:pointer;" canClick="1" class="box-btns-two">
+                            立即抢购
+                        </div>
+                    </a>
+                    <a th:href="${'/portal/'+vo.skuId+'.html'}">
+                        <div  style="cursor:pointer;margin-left: 100px;" canClick="1" class="box-btns-two">
+                            详情页
+                        </div>
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div id="seckill-attr" th:attr="sessionKey=${vo.redisSessionKey}
+    ,sid=${vo.id}
+    ,token=${vo.seckillToken}
+    ,starttime=${vo.starttime},
+    time=${vo.startOrEndMillies},
+    start=${vo.start}"
+    >
+    </div>
+
+</div>
+
+
+
+
+<div class="Fixedbian">
+    <ul>
+        <li class="li1"></li>
+    </ul>
+</div>
+<div class="gouwuchexiaguo">
+    <img src="/img/44.png"/>
+    <span>购物车还没有商品，赶紧选购吧！</span>
+</div>
+</body>
+
+<script src="/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/js.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript">
+
+
+
+    function seckillBtn(){
+        var sessionKey = $("#seckill-attr").attr("sessionKey");
+        var id = $("#seckill-attr").attr("sid");
+        var token = $("#seckill-attr").attr("token");
+        var url = "/seckill/sekill/sessionKey/"+sessionKey+"/id/"+id+"/token/"+token;
+        $.ajax({url:url,success:function(result){
+                if (result.success){
+                    alert(result.msg+",订单号："+result.orderSn);
+                }else {
+                    alert(result.msg);
+                }
+            }});
+    }
+    var cha = 4 * 1000 * 3600;
+
+    $(function () {
+        cha = $("#seckill-attr").attr("time");
+         var start = $("#seckill-attr").attr("start");
+         if (start || start=="start")
+         {
+             $("#seckill-end-text").append("后结束");
+         }else {
+             $("#seckill-end-text").append("后开始");
+         }
+    })
+
+
+
+
+    function search() {
+        var keyword = $("#searchInput").val()
+        window.location.href = "http://localhost:88/portal/search.html?keyword=" + keyword;
+    }
+
+
+    var template = '<li>\n' +
+        '                            <a href="/seckill/seckillSkuInfo/sessionKey/#redisSessionKey#/id/#id#">' +
+        '                                <img width="150px" height="150px" src="#skuDefaultImg#" alt="">'+
+        '                                <p>#skuName#</p>' +
+        '                                <span>¥#seckillPrice#</span><s>¥#price#</s>' +
+        '                            </a>\n' +
+        '                        </li>';
+
+
+
+    // 倒计时
+    setTimeout(function() {
+        function time() {
+            cha = cha - 1000;
+            var hours = parseInt(cha / 1000 / 3600) % 24;
+            var minutes = parseInt(cha / 1000 / 60) % 60;
+            var seconds = parseInt(cha / 1000) % 60;
+            if(hours < 10) {
+                hours = "0" + hours
+            }
+            if(minutes < 10) {
+                minutes = "0" + minutes
+            }
+            if(seconds < 10) {
+                seconds = "0" + seconds
+            }
+            $(".section_second_header_right_hours").html(hours);
+            $(".section_second_header_right_minutes").html(minutes);
+            $(".section_second_header_right_second").html(seconds);
+        }
+        setInterval(time, 1000)
+    }, 1)
+</script>
+
+</html>

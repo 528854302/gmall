@@ -1,8 +1,8 @@
 package com.a528854302.gmall.auth.controller;
 
 import com.a528854302.common.utils.R;
-import com.a528854302.gmall.auth.AuthException;
-import com.a528854302.gmall.auth.ProviderFeign;
+import com.a528854302.gmall.auth.exception.AuthException;
+import com.a528854302.gmall.auth.feign.ProviderFeign;
 import com.a528854302.gmall.auth.service.CaptchaService;
 import com.a528854302.gmall.auth.vo.MenberRigsterVo;
 import com.a528854302.gmall.provider.entity.MemberEntity;
@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 

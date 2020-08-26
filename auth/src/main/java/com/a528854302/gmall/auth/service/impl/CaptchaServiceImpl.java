@@ -1,6 +1,6 @@
 package com.a528854302.gmall.auth.service.impl;
 
-import com.a528854302.gmall.auth.AuthException;
+import com.a528854302.gmall.auth.exception.AuthException;
 import com.a528854302.gmall.auth.service.CaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

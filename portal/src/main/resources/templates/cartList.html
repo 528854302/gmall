@@ -23,10 +23,13 @@
 
             </ul>
             <ul class="header-right">
-                <li><a href="/auth/login.html" style="color: red;">你好，请登录</a></li>
-                <li><a href="/auth/register.html">免费注册</a></li>
+                <li th:if="${session.user==null}"><a href="/auth/login.html" style="color: red;">你好，请登录</a></li>
+                <li th:if="${session.user==null}"><a href="/auth/register.html">免费注册</a></li>
+                <li th:if="${session.user}">
+                     <a href="#" th:text="${'欢迎：'+session.user.nickname}"></a>
+                </li>
                 <li class="spacer"></li>
-                <li><a href="">我的订单</a></li>
+                <li th:if="${session.user}"><a href="">我的订单</a></li>
                 <li class="spacer"></li>
 
             </ul>

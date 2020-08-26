@@ -24,5 +24,7 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listLevel1Categories();
 
     Map<Long, List<Catelog2Vo>> getCatelogJson();
+
+    Map getCatelogJsonStringFromRedis();
 }
 

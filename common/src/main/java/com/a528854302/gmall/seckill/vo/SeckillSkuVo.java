@@ -2,9 +2,13 @@ package com.a528854302.gmall.seckill.vo;
 
 import com.a528854302.gmall.provider.entity.SkuInfoEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @ClassName SekillSkuVo
@@ -88,4 +92,32 @@ public class SeckillSkuVo {
     private String seckillToken;
 
     private String redisSessionKey;
+
+    private String starttime;
+
+    private String endtime;
+
+    private String remainStock;
+
+    private Boolean start=true;
+    //距离秒杀开始或者结束的时间
+    private Long startOrEndMillies;
+
+    public String getStarttime() {
+        if (redisSessionKey==null){
+            return null;
+        }
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String replace = this.redisSessionKey.replace("SECKILL_SESSION:", "");
+        return format.format(new Date(Long.parseLong(replace.split("_")[0])));
+    }
+
+    public String getEndtime() {
+        if (redisSessionKey==null){
+            return null;
+        }
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String replace = this.redisSessionKey.replace("SECKILL_SESSION:", "");
+        return format.format(new Date(Long.parseLong(replace.split("_")[1])));
+    }
 }

@@ -1,12 +1,11 @@
 package com.a528854302.gmall.auth.controller;
 
-import com.a528854302.gmall.auth.ProviderFeign;
+import com.a528854302.gmall.auth.feign.ProviderFeign;
 import com.a528854302.gmall.auth.service.CaptchaService;
 import com.a528854302.gmall.auth.vo.LoginVo;
 import com.a528854302.gmall.provider.entity.MemberEntity;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -61,17 +61,23 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@Valid LoginVo loginVo
-            , BindingResult result, Model model){
+            , BindingResult result, Model model, HttpSession session){
         if (result.hasErrors()){
-            throw new RuntimeException("用户名或者密码错误");
+            throw new RuntimeException("用户名或者密码校验错误");
         }
         MemberEntity memberEntity = providerFeign.selectMemberByUserName(loginVo.getUsername());
-        if (memberEntity.getPassword().equals(loginVo.getPassword())){
+        if (memberEntity!=null && memberEntity.getPassword().equals(loginVo.getPassword())){
             //login success
-            return "http://127.0.0.1:88/portal/index.html";
+            session.setAttribute("user",memberEntity);
+            return "redirect:http://localhost:88/portal/index.html";
         }else {
             throw new RuntimeException("用户名或者密码错误");
         }
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+            session.removeAttribute("user");
+         return "redirect:http://localhost:88/portal/index.html";
     }
 
 }

@@ -93,7 +93,7 @@
                     <a href="#">海外</a>
                 </div>
             </b>
-            <ul>
+            <ul th:if="${session.user==null}">
                 <li>
                     <a href="/auth/index.html">你好，请登录</a>
                 </li>
@@ -101,11 +101,19 @@
                     <a href="/auth/register.html" class="li_2">免费注册</a>
                 </li>
                 <span>|</span>
+            </ul>
+            <ul th:if="${session.user}">
+                <li>
+                    <a href="#" th:text="${'欢迎：'+session.user.nickname}"></a>
+                </li>
+                <span>|</span>
                 <li>
                     <a href="#">我的订单</a>
                 </li>
-
-
+                <span>|</span>
+                <li>
+                    <a href="/auth/logout">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -521,64 +529,27 @@
         <div class="swiper-container swiper_section_second_list_left">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <ul>
-                        <li>
-                            <img src="/img/section_second_list_img1.jpg" alt="">
-                            <p>花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片
-                                尿不湿（9-14千</p>
-                            <span>¥83.9</span><s>¥99.9</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img2.jpg" alt="">
-                            <p>华为mate9 4GB+32GB版 月光银 移动联通电信4G手机 双卡</p>
-                            <span>¥17.90</span><s>¥29.90</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img3.jpg" alt="">
-                            <p>超能 植翠低泡洗衣液（鲜艳亮丽）2kg/袋装（新老包装随机</p>
-                            <span>¥20.70</span><s>¥44.90</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img4.jpg" alt="">
-                            <p>长城（GreatWall）红酒 特选5年橡木桶解百纳干红葡萄酒 整</p>
-                            <span>¥399.00</span><s>¥599.00</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img5.jpg" alt="">
-                            <p>惠普(HP)暗影精灵2代Pro 15.6英寸游戏笔记本电脑(i5-7300H</p>
-                            <span>¥5999.00</span><s>¥6499.00</s>
-                        </li>
+                    <ul id="seckill-goods">
+<!--                        <li>-->
+<!--                            <a href="#">-->
+<!--                                <img src="/img/section_second_list_img1.jpg" alt="">-->
+<!--                                <p>花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片-->
+<!--                                    尿不湿（9-14千</p>-->
+<!--                                <span>¥83.9</span><s>¥99.9</s>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
                     </ul>
                 </div>
                 <div class="swiper-slide">
-                    <ul>
-                        <li>
-                            <img src="/img/section_second_list_img6.jpg" alt="">
-                            <p>Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理器/8GB内存/1TB/RP555显卡/4K屏 MNDY2CH/A） Apple iMac
-                                21.5英寸一体机（2017新款四核Core i5 处理</p>
-                            <span>¥9588.00</span><s>¥10288.00</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img7.jpg" alt="">
-                            <p>中柏（Jumper）EZpad 4S Pro 10.6英寸二合一平板电脑（X5 z</p>
-                            <span>¥848.00</span><s>¥899.00</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img8.jpg" alt="">
-                            <p>飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波震动牙刷粉色 飞利浦（PHILIPS）电动牙刷HX6761/03亮白型成人充电式声波
-                            </p>
-                            <span>¥379.00</span><s>¥698.00</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img9.jpg" alt="">
-                            <p>美的(Midea) 258升 变频智能三门冰箱 一级能效 风冷无霜 中门</p>
-                            <span>¥3088.00</span><s>¥3299.00</s>
-                        </li>
-                        <li>
-                            <img src="/img/section_second_list_img10.jpg" alt="">
-                            <p>【第二件减50元】蒙羊 内蒙古羔羊羊肋排 2.4斤</p>
-                            <span>¥99.90</span><s>¥199.00</s>
-                        </li>
+                    <ul id="seckill-goods1">
+<!--                        <li>-->
+<!--                            <img src="/img/section_second_list_img6.jpg" alt="">-->
+<!--                            <p>Apple iMac 21.5英寸一体机（2017新款四核Core i5 处理器/8GB内存/1TB/RP555显卡/4K屏 MNDY2CH/A） Apple iMac-->
+<!--                                21.5英寸一体机（2017新款四核Core i5 处理</p>-->
+<!--                            <span>¥9588.00</span><s>¥10288.00</s>-->
+<!--                        </li>-->
+
                     </ul>
                 </div>
             </div>
@@ -611,8 +582,73 @@
 <script type="text/javascript">
     function search() {
         var keyword = $("#searchText").val()
-        window.location.href = "http://localhost:88/portal/search.html?keyword=" + keyword;
+        if (keyword==null||keyword==undefined||keyword==''){
+            window.location.href = "/portal/search.html";
+        }else {
+            window.location.href = "/portal/search.html?keyword=" + keyword;
+        }
     }
+    var template = '<li>\n' +
+        '                            <a href="/seckill/seckillSkuInfo/sessionKey/#redisSessionKey#/id/#id#">' +
+        '                                <img width="150px" height="150px" src="#skuDefaultImg#" alt="">'+
+        '                                <p>#skuName#</p>' +
+        '                                <span>¥#seckillPrice#</span><s>¥#price#</s>' +
+        '                            </a>\n' +
+        '                        </li>';
+
+    var cha = 4 * 1000 * 3600;
+
+    $(function () {
+        $.ajax({url:"/seckill/getSeckillSkus",success:function(result){
+                var list = result.data;
+                var html="";
+                var key="";
+                if (list!=null && list!=undefined &&list.length>0){
+                    key=list[0].redisSessionKey;
+                    for (var i=0;i<list.length;i++){
+                        var temp = template.replace("#id#",list[i].id)
+                        .replace("#skuDefaultImg#",list[i].skuDefaultImg)
+                        .replace("#redisSessionKey#",list[i].redisSessionKey)
+                        .replace("#seckillPrice#",list[i].seckillPrice)
+                        .replace("#skuName#",list[i].skuTitle)
+                        .replace("#price#",list[i].price);
+                        html+=temp;
+                    }
+                }
+                var child = $(html);
+                $("#seckill-goods").append(child);
+                var endtime = parseInt(key.split('_')[2]);
+                cha=endtime-Date.parse(new Date());
+                //$("#seckill-goods1").append(child);
+            }});
+    });
+
+
+
+    // 倒计时
+    setTimeout(function() {
+
+
+        function time() {
+            cha = cha - 1000;
+            var hours = parseInt(cha / 1000 / 3600) % 24;
+            var minutes = parseInt(cha / 1000 / 60) % 60;
+            var seconds = parseInt(cha / 1000) % 60;
+            if(hours < 10) {
+                hours = "0" + hours
+            }
+            if(minutes < 10) {
+                minutes = "0" + minutes
+            }
+            if(seconds < 10) {
+                seconds = "0" + seconds
+            }
+            $(".section_second_header_right_hours").html(hours);
+            $(".section_second_header_right_minutes").html(minutes);
+            $(".section_second_header_right_second").html(seconds);
+        }
+        setInterval(time, 1000)
+    }, 1)
 
 </script>
 <script type="text/javascript" src="/js/text.js"></script>

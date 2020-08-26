@@ -2,10 +2,19 @@ package com.a528854302.gmall.provider.service.impl;
 
 import com.a528854302.gmall.provider.vo.Catelog2Vo;
 import com.a528854302.gmall.provider.vo.Catelog3Vo;
+import com.alibaba.fastjson.JSON;
+import io.lettuce.core.RedisClient;
+import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -19,6 +28,12 @@ import com.a528854302.gmall.provider.service.CategoryService;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    RedissonClient redissonClient;
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -45,6 +60,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public List<CategoryEntity> listLevel1Categories() {
         return this.list(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
+    }
+
+    @Override
+    public Map getCatelogJsonStringFromRedis(){
+        BoundValueOperations<String, String> ops = redisTemplate.boundValueOps("catelogJson");
+        String s = ops.get();
+        if (StringUtils.isEmpty(s)){
+            RLock lock = redissonClient.getLock("catelogLock");
+            lock.lock();
+            Map<Long, List<Catelog2Vo>> catelog = getCatelogJson();
+            lock.unlock();
+            s=JSON.toJSONString(catelog);
+            ops.set(s,12, TimeUnit.HOURS);
+        }
+        return JSON.parseObject(s,Map.class);
     }
 
     @Override

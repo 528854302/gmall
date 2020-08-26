@@ -1,4 +1,4 @@
-package com.a528854302.gmall.auth;
+package com.a528854302.gmall.auth.exception;
 
 /**
  * @ClassName AuthException

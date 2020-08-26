@@ -2,6 +2,8 @@ server:
   port: 8877
   servlet:
     context-path: /auth
+    session:
+      timeout: 30m
 spring:
   cloud:
     nacos:
@@ -16,9 +18,15 @@ spring:
     name: auth
   thymeleaf:
     cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   redis:
     host: 121.36.197.225
     port: 6379
+  #整合spring session配置
+  session:
+    store-type: redis
 #  zipkin:
 #    base-url: http://localhost:9411
 #    discovery-client-enabled: false
