@@ -104,21 +104,19 @@ public class SeckilServiceImpl implements SeckilService {
         return vo;
     }
     @Autowired
-    ThreadPoolExecutor threadPoolExecutor;
+    ExecutorCompletionService completionService;
 
     @Override
     public R seckill(String sessionKey, String id, String userId, String token) {
         RSemaphore semaphore = redissonClient
                 .getSemaphore(SeckillConst.SECKILL_SKU_STOCK_SEMAPHOR_PREFIX + token);
-        Future<R> future = threadPoolExecutor
+         completionService
                 .submit(new SeckillCallableTask(sessionKey, id, userId, token
                 , redisTemplate, semaphore));
         try {
-            R r = future.get();
+            R r = (R) completionService.take().get();
             return r;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        }  catch (Exception e) {
             e.printStackTrace();
         }
         return null;

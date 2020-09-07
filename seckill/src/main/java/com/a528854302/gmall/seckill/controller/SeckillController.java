@@ -27,8 +27,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class SeckillController {
     @Autowired
     SeckilService seckilService;
-    @Autowired
-    ThreadPoolExecutor threadPoolExecutor;
+
 
     @ResponseBody
     @RequestMapping("/getSeckillSkus")
@@ -52,11 +51,13 @@ public class SeckillController {
             ,@PathVariable("token")String token,HttpSession session){
         MemberEntity user = (MemberEntity) session.getAttribute("user");
         if (user==null){
-            return R.error("no login");
+//            return R.error("no login");
         }
-        String userId=user.getId().toString();
+//        String userId=user.getId().toString();
+        String userId = "4";
         return seckilService.seckill(sessionKey,id,userId,token);
     }
+
     @ResponseBody
     @RequestMapping("/sekill1/sessionKey/{sessionKey}/id/{id}/token/{token}")
     public R sekill1(@PathVariable("sessionKey")String sessionKey
@@ -67,7 +68,7 @@ public class SeckillController {
         if (user==null){
             return R.ok().put("success",false).put("msg","请先登录");
         }
-        String userId=user.getId().toString();
+
 //        String orderSn = seckilService.seckill(sessionKey,id,userId,token);
 //        if (StringUtils.isNotEmpty(orderSn)){
 //            return R.ok().put("msg","恭喜抢单成功！！");

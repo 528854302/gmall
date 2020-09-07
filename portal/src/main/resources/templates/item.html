@@ -54,11 +54,20 @@
                     </ol>
                 </li>
             </ul>
-            <ul class="header_ul_right">
+            <ul class="header_ul_right" th:if="${session.user==null}">
                 <li style="border: 0;"><a href="/auth/index.html" class="aa">你好，请登录</a></li>
-                <li><a href="/auth/register.html" style="color: red;">免费注册</a> |</li>
-                <li><a href="javascript:;" class="aa">我的订单</a> |</li>
-
+                <li th:if="${session.user==null}"><a href="/auth/register.html" style="color: red;">免费注册</a> |</li>
+                <li> |</li>
+            </ul>
+            <ul class="header_ul_right" th:if="${session.user}">
+                <li>
+                    <a href="#" th:text="${'欢迎：'+session.user.nickname}"></a>
+                </li>
+                <li>
+                    <a href="#">我的订单</a>
+                </li>
+                <li>
+                    <a href="/auth/logout">退出</a>
             </ul>
         </div>
     </header>

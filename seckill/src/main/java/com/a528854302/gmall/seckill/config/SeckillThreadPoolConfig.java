@@ -1,5 +1,6 @@
 package com.a528854302.gmall.seckill.config;
 
+import com.a528854302.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +18,13 @@ import java.util.concurrent.*;
 @Configuration
 public class SeckillThreadPoolConfig {
     @Bean
-    public ThreadPoolExecutor seckillThreadPool(){
-        return new ThreadPoolExecutor(10
+    public ExecutorCompletionService<R> seckillThreadPool(){
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10
                 , 200,
                 30, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(200)
-                , new  ThreadPoolExecutor.AbortPolicy());
+                , new ThreadPoolExecutor.AbortPolicy());
+        return new ExecutorCompletionService(threadPoolExecutor);
     }
+
 }

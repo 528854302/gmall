@@ -79,7 +79,6 @@ export default {
               this.dataForm.startTime = data.seckillSession.startTime;
               this.dataForm.endTime = data.seckillSession.endTime;
               this.dataForm.status = data.seckillSession.status;
-              this.dataForm.createTime = data.seckillSession.createTime;
             }
           });
         }
